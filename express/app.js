@@ -10,18 +10,18 @@ const app =express();
  const staticPath=path.join(import.meta.dirname ,"public");
 app.use(express.static(staticPath));
 
-// app.get("/product",(req,res)=>{
-//     console.log(req.query);
-//     res.send(` <h1> User searched for ${req.query.search}</h1>`);
-// })
+app.get("/product",(req,res)=>{
+    console.log(req.query);
+    res.send(` <h1> User searched for ${req.query.search}</h1>`);
+})
 
 
-// app.get("/",(req,res)=>{
+app.get("/",(req,res)=>{
     
-//     const homePagePath=path.join(import.meta.dirname ,"public","index.html");
-//     res.sendFile(homePagePath);
+    const homePagePath=path.join(import.meta.dirname ,"public","index.html");
+    res.sendFile(homePagePath);
 
-// });
+});
 app.use(express.urlencoded({extended:true})); //middle ware
 app.post("/contact",(req,res)=>{
     console.log(req.body);
@@ -39,6 +39,11 @@ app.post("/contact",(req,res)=>{
 //     console.log(req.params);
 
 // })
+app.use((req,res)=>{
+    const errorPage=path.join(import.meta.dirname,"views","404.html");
+    res.status(404).sendFile(errorPage);
+})
+
 app.listen(PORT,()=>{
     console.log(`server is running at port: ${PORT}`);
 });
