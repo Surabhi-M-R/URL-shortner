@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>About Me</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Simple Form</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card">
-        <h1>Hello! I'm Surabhi M R</h1>
-        <p>I am a Computer Science and Data Science student at MVJ College of Engineering.</p>
-        <p>I love coding, exploring tech, and creating useful projects.</p>
-        <p>Skills: HTML, CSS, JavaScript, Node.js, express.js</p>
-    </div>
+  <div class="form-container">
+    <h2>Contact Form</h2>
+    <form action="/contact" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 </body>
 </html>
