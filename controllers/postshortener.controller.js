@@ -1,8 +1,30 @@
 import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
+import { loadLinks,saveLinks } from '../models/shortener.model.js';
 
-export const postURLshortener= (loadLinks,saveLinks)=>async (req, res) => {
+
+export const getURLshortener= async (req, res) => {
+    try {
+        const file = await fs.readFile(path.join("views", "index.html"));
+        const links = await loadLinks();
+        const content = file.toString().replaceAll(
+            "{{ shortened_urls }}",
+            Object.entries(links)
+                .map(
+                    ([shortCode, url]) =>
+                        `<li><a href="/${shortCode}" target="_blank">${req.headers.host}/${shortCode}</a> - ${url}</li>`
+                )
+                .join("")
+        );
+        return res.send(content);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal server error");
+    }
+};
+
+export const postURLshortener =async (req, res) => {
     try {
         const { url, shortCode } = req.body;
         const links = await loadLinks();
@@ -39,5 +61,16 @@ export const postURLshortener= (loadLinks,saveLinks)=>async (req, res) => {
     } catch (error) {
         console.error(error);
         return res.status(500).send("Internal Server Error");
+    }
+};
+ export const getURLshortenersub=async (req, res) => {
+    try{
+    const { shortCode } = req.params;
+    const links = await loadLinks();
+    if (!links[shortCode]) return res.status(404).send("404 error occurred");
+    return res.redirect(links[shortCode]);
+    }catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal server error");
     }
 };

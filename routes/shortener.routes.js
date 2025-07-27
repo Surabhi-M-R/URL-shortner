@@ -2,74 +2,30 @@ import crypto from 'crypto';
 import fs from 'fs/promises';
 import path from 'path';
 import {Router} from 'express';
-import {postURLshortener} from "../controllers/postshortener.controller.js";
+import {postURLshortener,getURLshortener,getURLshortenersub} from "../controllers/postshortener.controller.js";
 
 const router=Router();
-const DATA_FILE=path.join("data","links.json");
 
 
 const serveFile= async (res, filePath,contentType)=>{
-     try {
-            const data =await fs.readFile(filePath); 
-            res.writeHead(200, {'Content-Type':contentType});
-            res.end(data);
-            } catch (error) {
-                res.writeHead(404, {'Content-Type':contentType});
-                res.end("404 page not found");
-            }
-}
-
-const loadLinks = async () => {
-  try {
-    const data = await fs.readFile(DATA_FILE, "utf-8");
-    return data.trim() === "" ? {} : JSON.parse(data);
-  } catch (error) {
-    if (error.code === "ENOENT") {
-      await fs.writeFile(DATA_FILE, JSON.stringify({}));
-      return {};
-    }
-    throw error;
-  }
-};
-
-const saveLinks=async(links)=>{
-    await fs.writeFile(DATA_FILE,JSON.stringify(links)); 
-}
-
-
-router.get("/", async (req, res) => {
     try {
-        const file = await fs.readFile(path.join("views", "index.html"));
-        const links = await loadLinks();
-        const content = file.toString().replaceAll(
-            "{{ shortened_urls }}",
-            Object.entries(links)
-                .map(
-                    ([shortCode, url]) =>
-                        `<li><a href="/${shortCode}" target="_blank">${req.headers.host}/${shortCode}</a> - ${url}</li>`
-                )
-                .join("")
-        );
-        return res.send(content);
+        const data =await fs.readFile(filePath); 
+        res.writeHead(200, {'Content-Type':contentType});
+        res.end(data);
     } catch (error) {
-        console.error(error);
-        return res.status(500).send("Internal server error");
+        res.writeHead(404, {'Content-Type':contentType});
+        res.end("404 page not found");
     }
-});
+}
 
-router.get("/:shortCode", async (req, res) => {
-    try{
-    const { shortCode } = req.params;
-    const links = await loadLinks();
-    if (!links[shortCode]) return res.status(404).send("404 error occurred");
-    return res.redirect(links[shortCode]);
-    }catch (error) {
-        console.error(error);
-        return res.status(500).send("Internal server error");
-    }
-});
+
+
+
+
 //controller
-router.post("/", postURLshortener(loadLinks,saveLinks))
+router.get("/",getURLshortener)
+router.post("/", postURLshortener)
+router.get("/:shortCode",getURLshortenersub);
 // POST "/" - Handle URL shortening
 // router.post("/", async (req, res) => {
 //     try {
