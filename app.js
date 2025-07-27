@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // express router
 app.use(shortenedRoutes);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-
+app.set("view engine","ejs");
 app.listen(PORT,()=>{
     console.log(`server running at https://localhost:${PORT}`);
 });
