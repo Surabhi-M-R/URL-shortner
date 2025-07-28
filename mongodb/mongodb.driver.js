@@ -13,15 +13,15 @@ userCollection.insertMany([{names:"sura",age: 100},
 
 // Read
 
- //const userCursor=userCollection.find();
-// console.log(userCursor);
+ const userCursor=userCollection.find();
+console.log(userCursor);
 
-// for await (const user of userCursor){
-//     console.log(user)
-// };
+for await (const user of userCursor){
+    console.log(user)
+};
 
-// const userCursor= await userCollection.find().toArray();
-// console.log(userCursor);
+const userCursor= await userCollection.find().toArray();
+console.log(userCursor);
 
 const user=await userCollection.findOne({names:"sush"});
 //console.log(user);
