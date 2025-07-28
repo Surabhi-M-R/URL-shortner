@@ -44,8 +44,9 @@ export const postURLshortener =async (req, res) => {
 
         // Save new short code
         const finalShortCode = shortCode || crypto.randomBytes(4).toString("hex");
-        links[finalShortCode] = url;
-        await saveLinks(links);
+        // links[finalShortCode] = url;
+        // await saveLinks(links);
+        await saveLinks({url,shortCode})
 
         // Send success alert
         const file = await fs.readFile(path.join("views", "index.html"));
@@ -66,9 +67,10 @@ export const postURLshortener =async (req, res) => {
  export const getURLshortenersub=async (req, res) => {
     try{
     const { shortCode } = req.params;
-    const links = await loadLinks();
-    if (!links[shortCode]) return res.status(404).send("404 error occurred");
-    return res.redirect(links[shortCode]);
+    //const links = await loadLinks();
+    const link=await getLinkByShortCode(shortCode);
+    if (!link) return res.status(404).redirect("/404");
+    return res.redirect(link);
     }catch (error) {
         console.error(error);
         return res.status(500).send("Internal server error");

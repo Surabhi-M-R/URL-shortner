@@ -1,6 +1,7 @@
 
 import express from 'express';
 import {shortenedRoutes} from "./routes/shortener.routes.js";
+import {env} from "./config/env.js"
 
 const app=express();
 const PORT=3005;

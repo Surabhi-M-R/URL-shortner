@@ -31,4 +31,3 @@ console.log(user._id);
 await userCollection.updateOne({names:"sush"},{$set:{age:21}});
 
 await userCollection.deleteOne({names:"sush"});
-cd
