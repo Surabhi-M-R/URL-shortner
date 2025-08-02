@@ -27,6 +27,27 @@ console.log(await db.execute("show databases"));
     // 'sush','sush@gamil.com')
     // `)
 
-    // REad
-    const rows=await db.execute(`select *from users`);
+   
+
+
+
+    // insert values using prepared statement (Best Practice);
+    // await db.execute(`insert into users(username,email) values(?,?)`,
+    //     ["surabhi",
+    //         "surabhimr@gmail.com",
+    //     ]
+    // );
+
+    // const values=[
+    //     ["ram","ram@"],
+    //     ["vishnu","vishnu@"],
+    //     ["narayan","narayan@"],
+    //     ["krishna","krishns@"],
+    // ];
+    // db.query(`insert into users(username,email) values ?`,[values]);
+
+    //REad
+    const [rows]=await db.execute(`select *from users  `);
     console.log(rows);
+
+    
