@@ -69,4 +69,4 @@ console.log(" MYSql connected Successfully");
 
     //REad
     const [rows]=await db.execute(`select *from users  `);
-    console.log(rows);
+    console.log(rows);-
