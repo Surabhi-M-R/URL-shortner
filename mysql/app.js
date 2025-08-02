@@ -11,7 +11,7 @@ const db=await mysql.createConnection({
 console.log(" MYSql connected Successfully");
 
 //await db.execute(`create database mysql_db`);
-console.log(await db.execute("show databases"));
+//console.log(await db.execute("show databases"));
 
 // await db.execute(`
 //     CREATE TABLE user(
@@ -46,8 +46,27 @@ console.log(await db.execute("show databases"));
     // ];
     // db.query(`insert into users(username,email) values ?`,[values]);
 
+    
+
+    // try{
+    //     const[rows]=await db.execute( 
+    //         'update users set username="susfvb" where email=" sush@gmail.com" '
+    //     )
+    // }catch(error){
+    //     console.error(error);
+    // }
+
+    // Delete
+
+// try{
+//         const[rows]=await db.execute( 
+//             "DELETE FROM users  where email='sush@gmail.com' "
+//         );
+//         console.log("All USERS:",rows);
+//     }catch(error){
+//         console.error(error);
+    //}
+
     //REad
     const [rows]=await db.execute(`select *from users  `);
     console.log(rows);
-
-    
