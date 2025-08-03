@@ -13,14 +13,38 @@ export const prisma =new PrismaClient();
 //     })
 // }
 
-const main=async()=>{
-    const newUser=await prisma.user.createMany({
-        data:[
-            {name:"sush",email:"sush@gmail.com"},
-            {name:"ram",email:"ram@gmail.com"},
-                ],
-    })
+ const main=async()=>{
+//     const newUser=await prisma.user.createMany({
+//         data:[
+//             {name:"sush",email:"sush@gmail.com"},
+//             {name:"ram",email:"ram@gmail.com"},
+//                 ],
+//     })
+// 
+
+// const users =await prisma.user.findMany();
+// console.log(users);
+
+// get a single id
+// const users=await prisma.user.findUnique({
+//     where :{id:2},
+// });
+// console.log(users.email)
+
+// get unique with preferred
+// const users=await prisma.user.findUnique({
+//     where :{email:"ram@gmail.com"},
+// });
+// console.log(users);
+
+// update operation
+const updateUser=await prisma.user.update({
+    where: {id:2},
+    data:{name:"Ram the Lord"},
+});
+console.log(updateUser);
 }
+
 main()
     .catch((error)=>console.error(error))
     .finally(async ()=>{
