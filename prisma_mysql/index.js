@@ -38,11 +38,24 @@ export const prisma =new PrismaClient();
 // console.log(users);
 
 // update operation
-const updateUser=await prisma.user.update({
-    where: {id:2},
-    data:{name:"Ram the Lord"},
-});
-console.log(updateUser);
+// const updateUser=await prisma.user.update({
+//     where: {id:2},
+//     data:{name:"Ram the Lord"},
+// });
+// console.log(updateUser);
+
+// update many users
+// const updateUser=await prisma.user.updateMany({
+//     where: {id:2},
+//     data:{name:"Ram "},
+// });
+// console.log(updateUser);
+const deleteUser=await prisma.user.delete({
+    where:{id:2},
+})
+console.log(deleteUser);
+
+
 }
 
 main()
