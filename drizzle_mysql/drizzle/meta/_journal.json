@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1754225142276,
+      "tag": "0000_thankful_gateway",
+      "breakpoints": true
+    }
+  ]
+}
